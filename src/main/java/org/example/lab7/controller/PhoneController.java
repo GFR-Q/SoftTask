@@ -1,14 +1,13 @@
 package org.example.lab7.controller;
 
-import com.example.lab7.dto.PhoneDTO;
-import com.example.lab7.service.PhoneService;
+import org.example.lab7.dto.PhoneDTO;
+import org.example.lab7.service.PhoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/phones")
@@ -20,6 +19,7 @@ public class PhoneController {
     public PhoneController(PhoneService phoneService) {
         this.phoneService = phoneService;
     }
+
 
     @PostMapping
     public ResponseEntity<PhoneDTO> createPhone(@RequestBody PhoneDTO phoneDTO) {
@@ -35,19 +35,24 @@ public class PhoneController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PhoneDTO> getPhoneById(@PathVariable Long id) {
-        Optional<PhoneDTO> phone = phoneService.findById(id);
-
-        return phone.map(ResponseEntity::ok) // Если телефон найден, возвращаем 200 OK
-                .orElseGet(() -> ResponseEntity.notFound().build()); // Иначе 404 Not Found
+        PhoneDTO phone = phoneService.findById(id);
+        if (phone != null) {
+            return ResponseEntity.ok(phone);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<PhoneDTO> updatePhone(@PathVariable Long id,
                                                 @RequestBody PhoneDTO phoneDTO) {
-        Optional<PhoneDTO> updatedPhone = phoneService.update(id, phoneDTO);
+        PhoneDTO updatedPhone = phoneService.update(id, phoneDTO);
 
-        return updatedPhone.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        if (updatedPhone != null) {
+            return ResponseEntity.ok(updatedPhone);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")

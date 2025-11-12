@@ -1,16 +1,19 @@
 package org.example.lab7.service;
 
-import com.example.lab7.dto.PhoneDTO;
-import com.example.lab7.entity.Phone;
-import com.example.lab7.repository.PhoneRepository;
+
+import org.example.lab7.dto.PhoneDTO;
+import org.example.lab7.entity.Phone;
+import org.example.lab7.repository.PhoneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class PhoneService {
+public class PhoneService implements PhonServices {
 
     private final PhoneRepository phoneRepository;
 
@@ -51,28 +54,40 @@ public class PhoneService {
         return toDto(savedPhone);
     }
 
+    @Override
     public List<PhoneDTO> findAll() {
         List<Phone> phones = phoneRepository.findAll();
-        return phones.stream()
-                .map(this::toDto)
-                .collect(Collectors.toList());
-    }
 
-    public Optional<PhoneDTO> findById(Long id) {
+        List<PhoneDTO> phoneDTOs = new ArrayList<>();
+
+        for (Phone phone : phones) {
+            PhoneDTO dto = toDto(phone);
+            phoneDTOs.add(dto);
+        }
+        return phoneDTOs;
+    }
+    @Override
+    public PhoneDTO findById(Long id) {
         Optional<Phone> phoneOptional = phoneRepository.findById(id);
-        return phoneOptional.map(this::toDto);
+
+        if (phoneOptional.isPresent()) {
+            Phone phone = phoneOptional.get();
+            return toDto(phone);
+        }
+        return null;
     }
 
-    public Optional<PhoneDTO> update(Long id, PhoneDTO phoneDTO) {
+    @Override
+    public PhoneDTO update(Long id, PhoneDTO phoneDTO) {
         if (phoneRepository.existsById(id)) {
             phoneDTO.setId(id);
-
             Phone phoneToUpdate = toEntity(phoneDTO);
             Phone updatedPhone = phoneRepository.save(phoneToUpdate);
 
-            return Optional.of(toDto(updatedPhone));
+            return toDto(updatedPhone);
         }
-        return Optional.empty();
+
+        return null;
     }
 
     public boolean delete(Long id) {
