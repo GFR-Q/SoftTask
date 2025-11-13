@@ -22,31 +22,7 @@ public class PhoneService implements PhonServices {
         this.phoneRepository = phoneRepository;
     }
 
-    public PhoneDTO toDto(Phone entity) {
-        if (entity == null) {
-            return null;
-        }
-        PhoneDTO dto = new PhoneDTO();
-        dto.setId(entity.getId());
-        dto.setBrand(entity.getBrand());
-        dto.setModel(entity.getModel());
-        dto.setStorageGb(entity.getStorageGb());
-        dto.setPrice(entity.getPrice());
-        return dto;
-    }
 
-    public Phone toEntity(PhoneDTO dto) {
-        if (dto == null) {
-            return null;
-        }
-        Phone entity = new Phone();
-        entity.setId(dto.getId());
-        entity.setBrand(dto.getBrand());
-        entity.setModel(dto.getModel());
-        entity.setStorageGb(dto.getStorageGb());
-        entity.setPrice(dto.getPrice());
-        return entity;
-    }
 
     public PhoneDTO create(PhoneDTO phoneDTO) {
         Phone phoneToSave = toEntity(phoneDTO);
@@ -96,5 +72,33 @@ public class PhoneService implements PhonServices {
             return true;
         }
         return false;
+    }
+
+
+
+    public PhoneDTO toDto(Phone entity) {
+        if (entity == null) {
+            return null;
+        }
+        PhoneDTO dto = new PhoneDTO();
+        dto.setId(entity.getId());
+        dto.setBrand(entity.getBrand());
+        dto.setModel(entity.getModel());
+        dto.setStorageGb(entity.getStorageGb());
+        dto.setPrice(entity.getPrice());
+        return dto;
+    }
+
+    public Phone toEntity(PhoneDTO dto) {
+        if (dto == null) {
+            return null;
+        }
+        Phone entity = new Phone();
+        entity.setId(dto.getId());
+        entity.setBrand(dto.getBrand());
+        entity.setModel(dto.getModel());
+        entity.setStorageGb(dto.getStorageGb());
+        entity.setPrice(dto.getPrice());
+        return entity;
     }
 }

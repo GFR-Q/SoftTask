@@ -10,10 +10,8 @@ public interface PhonServices {
 
     List<PhoneDTO> findAll();
 
-    // Изменено: PhoneDTO вместо Optional<PhoneDTO>
     PhoneDTO findById(Long id);
 
-    // Изменено: PhoneDTO вместо Optional<PhoneDTO>
     PhoneDTO update(Long id, PhoneDTO phoneDTO);
 
     boolean delete(Long id);

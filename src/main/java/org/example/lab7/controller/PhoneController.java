@@ -20,13 +20,6 @@ public class PhoneController {
         this.phoneService = phoneService;
     }
 
-
-    @PostMapping
-    public ResponseEntity<PhoneDTO> createPhone(@RequestBody PhoneDTO phoneDTO) {
-        PhoneDTO createdPhone = phoneService.create(phoneDTO);
-        return new ResponseEntity<>(createdPhone, HttpStatus.CREATED);
-    }
-
     @GetMapping
     public ResponseEntity<List<PhoneDTO>> getAllPhones() {
         List<PhoneDTO> phones = phoneService.findAll();
@@ -41,6 +34,12 @@ public class PhoneController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PostMapping
+    public ResponseEntity<PhoneDTO> createPhone(@RequestBody PhoneDTO phoneDTO) {
+        PhoneDTO createdPhone = phoneService.create(phoneDTO);
+        return new ResponseEntity<>(createdPhone, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
