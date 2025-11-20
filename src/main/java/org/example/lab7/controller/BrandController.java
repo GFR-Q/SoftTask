@@ -1,35 +1,35 @@
 package org.example.lab7.controller;
-import org.example.lab7.dto.PhoneDTO;
-import org.example.lab7.service.PhoneService;
+
+import org.example.lab7.dto.BrandDTO;
+import org.example.lab7.service.BrandService;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @RestController
-@RequestMapping("/phones")
-public class PhoneController {
-    private final PhoneService service;
-    public PhoneController(PhoneService service) {
+@RequestMapping("/brands")
+public class BrandController {
+    private final BrandService service;
+    public BrandController(BrandService service) {
         this.service = service;
     }
     @PostMapping
-    public PhoneDTO create(@RequestBody PhoneDTO dto) {
+    public BrandDTO create(@RequestBody BrandDTO dto) {
         return service.create(dto);
     }
     @GetMapping
-    public List<PhoneDTO> getAll() {
+    public List<BrandDTO> getAll() {
         return service.getAll();
     }
     @GetMapping("/{id}")
-    public PhoneDTO getById(@PathVariable Long id) {
+    public BrandDTO getById(@PathVariable Long id) {
         return service.getById(id);
     }
     @PutMapping("/{id}")
-    public PhoneDTO update(@PathVariable Long id, @RequestBody PhoneDTO dto)
+    public BrandDTO update(@PathVariable Long id, @RequestBody BrandDTO dto)
     {
         return service.update(id, dto);
     }
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         service.delete(id);
-
     }
 }
