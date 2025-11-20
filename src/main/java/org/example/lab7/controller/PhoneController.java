@@ -32,7 +32,7 @@ public class PhoneController {
         if (phone != null) {
             return ResponseEntity.ok(phone);
         } else {
-            return ResponseEntity.notFound().build();
+            return new ResponseEntity<>(phone, HttpStatus.NOT_FOUND);
         }
     }
 
@@ -50,7 +50,7 @@ public class PhoneController {
         if (updatedPhone != null) {
             return ResponseEntity.ok(updatedPhone);
         } else {
-            return ResponseEntity.notFound().build();
+            return new ResponseEntity<>(updatedPhone, HttpStatus.NOT_FOUND);
         }
     }
 
