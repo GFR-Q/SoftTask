@@ -2,11 +2,20 @@ package org.example.lab7.entity;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class Phone {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,22 +40,5 @@ public class Phone {
     private List<Category> categories = new ArrayList<>();
 
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
 
-
-    public String getModel() { return model; }
-    public void setModel(String model) { this.model = model; }
-
-
-    public double getPrice() { return price; }
-    public void setPrice(double price) { this.price = price; }
-
-
-    public Brand getBrand() { return brand; }
-    public void setBrand(Brand brand) { this.brand = brand; }
-
-
-    public List<Category> getCategories() { return categories; }
-    public void setCategories(List<Category> categories) { this.categories = categories; }
 }
